@@ -1,0 +1,14 @@
+<app-header title="Perfil" [showMenuButton]="true"></app-header>
+<ion-content class="ion-padding-top ion-text-center">
+  <ion-avatar>
+    <img *ngIf="user.image" [src]="user.image" />
+    <ion-icon *ngIf="!user.image" class="empty-icon" name="person-circle-outline"></ion-icon>
+  </ion-avatar>
+  <ion-button class="photo-btn" (click)="takeImage()" size="small" shape="round" mode="ios">
+    <ion-icon name="camera-outline"></ion-icon>
+  </ion-button>
+
+  <h2>{{user.name}}</h2>
+  <h2>{{user.email}}</h2>
+  
+</ion-content>

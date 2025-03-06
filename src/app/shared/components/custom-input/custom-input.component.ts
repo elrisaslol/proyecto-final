@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { IonInput, IonItem, IonIcon, IonButton } from "@ionic/angular/standalone";
+import { IonItem, IonIcon, IonInput, IonButton} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
 
@@ -9,33 +9,30 @@ import { eyeOutline, eyeOffOutline } from 'ionicons/icons';
   selector: 'app-custom-input',
   templateUrl: './custom-input.component.html',
   styleUrls: ['./custom-input.component.scss'],
-  standalone: true,
-  imports: [IonButton, IonIcon, IonInput, IonItem, CommonModule, ReactiveFormsModule]
+  imports: [IonItem, IonIcon, IonInput, ReactiveFormsModule, CommonModule, IonButton],
 })
-export class CustomInputComponent  implements OnInit {
-
-  @Input() control! :FormControl;
+export class CustomInputComponent implements OnInit {
+  @Input() control!: FormControl;
   @Input() type!: string;
   @Input() label!: string;
-  @Input() autocomplete! :string;
-  @Input() icon? :string;
+  @Input() autocomplete!: string;
+  @Input() icon?: string;
 
   isPassword! :boolean;
-  hide :boolean = true;
+  hide: boolean = true;
 
-  constructor() { addIcons({eyeOutline, eyeOffOutline}); }
+  constructor() {
+    addIcons({ eyeOffOutline, eyeOutline})
+   }
 
-  ngOnInit() {
-    this.isPassword = this.type=="password";
-  }
+  ngOnInit() { this.isPassword = this.type == "password";}
 
   showOrHidePassword() {
     this.hide = !this.hide;
     if (this.hide) {
-      this.type= "password";
+      this.type="password";
     } else {
-      this.type ="text";
+      this.type="text";
     }
   }
-
 }

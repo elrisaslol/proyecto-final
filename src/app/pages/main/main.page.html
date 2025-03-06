@@ -1,0 +1,26 @@
+<ion-menu contentId="menu-content" menuId="menu-content" side="start" type="overlay">
+  <app-header title="Menu"></app-header>
+    <ion-content class="ion-text-center">
+      <ion-avatar>
+        <ion-icon *ngIf="!user.image" class="avatar-icon" name="person-circle-outline"></ion-icon>
+        <img  *ngIf="user.image"  [src]="user.image" />
+      </ion-avatar>
+      <h4>{{user.name}}</h4>
+      <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
+          <ion-item [routerLink]="page.url" routerLinkActive="active" routerDirection="root" detail>
+            <ion-icon [name]="page.icon" slot="start"></ion-icon>
+            <ion-label>{{page.title}}</ion-label>
+        </ion-item>
+      </ion-menu-toggle>
+    </ion-content>
+    <ion-footer class="ion-no-border">
+      <ion-menu-toggle auto-hide="false">
+        <ion-item (click)="signOut()" lines="none">
+          <ion-icon name="log-out-outline" slot="start"></ion-icon>
+          <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
+    </ion-menu-toggle>
+    </ion-footer>
+  </ion-menu>
+  
+  <ion-router-outlet id="menu-content"></ion-router-outlet>

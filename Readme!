@@ -1,8 +1,10 @@
-# WarMace Manager
-# trabajanding, lets gooo
+# Castle Card Manager
+# Aplicacion basada en Warmace Manager
 
 
-WarMace Manager es una aplicación desarrollada con [Angular](https://angular.io/) e [Ionic](https://ionicframework.com/) que permite gestionar una colección de miniaturas del universo WarMace.
+
+
+Castle Card Manager es una aplicación desarrollada con [Angular](https://angular.io/) e [Ionic](https://ionicframework.com/) que permite gestionar una colección de cartas de tus juegos de mesa favoritos.
 
 ## Requisitos previos
 

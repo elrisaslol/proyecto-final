@@ -1,0 +1,55 @@
+<app-header [title]="miniature? 'Editar carta' : 'Añadir carta'" [isModal]="true"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" class="ion-padding ion-text-center">
+
+      <ion-avatar *ngIf="form.value.image">
+        <img [src]="form.value.image" />
+      </ion-avatar>
+      <ion-icon name="image-outline" class="image-icon" *ngIf="!form.value.image"></ion-icon>
+      <br />
+      <ion-button (click)="takeImage()" size="small" mode="ios" shape="round">
+        Tomar / Seleccionar
+      </ion-button>
+
+      <app-custom-input [control]="form.controls.date" type="text" label="Fecha de registro"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.date.errors && form.controls.date.touched">
+        <div *ngIf="form.controls.date.errors?.['required']">
+          Debe especificar una fecha de registro
+        </div>
+        <div *ngIf="form.controls.date.errors?.['minlength']">
+          El nombre debe tener al menos 4 caracteres.
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.type" type="text" label="Tipo"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.type.errors && form.controls.type.touched">
+        <div *ngIf="form.controls.type.errors?.['required']">
+          Debe especificar un tipo a la carta (ej. corazon, diamante, pica, trebol)
+        </div>
+        <div *ngIf="form.controls.type.errors?.['min']">
+         el tipo debe tener al menos 1 caracter.
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.number" type="number" label="Numero"></app-custom-input>
+
+      <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
+        <div *ngIf="form.controls.number.errors?.['required']">
+          Debe especificar una numero de carta
+        </div>
+        <div *ngIf="form.controls.number.errors?.['min']">
+          El numero  debe ser mayor que cero.
+        </div>
+      </div>
+
+      <ion-button mode="ios" (click)="submit()" expand="block" class="submit" type="submit" [disabled]="form.invalid">
+        {{miniature? 'Editar carta' : 'Añadir carta'}}
+        <ion-icon slot="end" name="body-outline"></ion-icon>
+      </ion-button>
+    </form>
+
+  </div>
+</ion-content>
