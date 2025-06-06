@@ -1,0 +1,90 @@
+<app-header title="Búsqueda" [showMenuButton]="true"></app-header>
+
+<ion-content>
+
+  <!-- Filtros de búsqueda -->
+  <ion-card>
+    <ion-item>
+      <ion-label position="stacked">Buscar término</ion-label>
+      <ion-input name="searchTerm" [(ngModel)]="searchTerm" placeholder="Escribe..." clearInput></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Buscar en campo</ion-label>
+      <ion-select name="searchField" [(ngModel)]="searchField" interface="popover">
+        <ion-select-option *ngFor="let opt of searchFieldsOptions" [value]="opt.value">
+          {{ opt.label }}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="full" color="primary" (click)="onSearch()">
+      <ion-icon slot="start" name="search-outline"></ion-icon>
+      Buscar
+    </ion-button>
+  </ion-card>
+
+  <!-- Resultados -->
+  <ion-card mode="ios" color="secondary" class="d-flex-center ion-text-center" *ngIf="!loading && filteredMiniatures.length > 0">
+    <div>
+      <h5>{{ filteredMiniatures.length }}</h5>
+      <p>Resultados encontrados</p>
+    </div>
+  </ion-card>
+
+  <ion-list *ngIf="!loading && filteredMiniatures.length > 0" class="miniatures-list">
+    <ion-item-sliding *ngFor="let mini of filteredMiniatures" class="miniature-item">
+      <ion-item>
+        <ion-avatar slot="start">
+          <img [src]="mini.image" alt="Imagen de {{mini.objeto}}" />
+        </ion-avatar>
+        <ion-label>
+          <div class="name"><strong>Fecha de Ingreso:</strong> {{ mini.fecha_de_ingreso }}</div>
+          <div class="data">
+            <strong>Objeto:</strong> {{ mini.objeto }}<br />
+            <strong>Número de Registro/Inventario:</strong> {{ mini.num_de_regs_inv_o_idnt }}
+          </div>
+          <ion-chip color="primary" mode="ios" outline="true">
+            <ion-label>
+              Especificaciones físicas: dimensiones: {{ mini.dimensiones }}, peso: {{ mini.peso }}
+            </ion-label>
+          </ion-chip>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end" class="swipe-indicator"></ion-icon>
+      </ion-item>
+      <ion-item-options>
+        <ion-item-option (click)="viewMiniature(mini)" color="warning">
+          <ion-icon class="option-btn" name="search-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click)="addUpdateMiniature(mini)" *ngIf="user?.admin">
+          <ion-icon class="option-btn" name="create-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click)="confirmDeleteMiniature(mini)" color="danger" *ngIf="user?.admin">
+          <ion-icon class="option-btn" name="trash-outline"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <!-- Skeleton -->
+  <ion-list *ngIf="loading" class="miniatures-list">
+    <ion-item *ngFor="let i of [1,1,1,1,1]" class="miniature-item">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <div><ion-skeleton-text animated style="width: 60%"></ion-skeleton-text></div>
+        <div><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></div>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- Sin resultados -->
+  <div *ngIf="!loading && filteredMiniatures.length === 0 && miniatures.length > 0" class="empty">
+    <ion-avatar class="empty-avatar">
+      <img src="assets/form.svg" alt="No hay resultados" />
+    </ion-avatar>
+    <h3>No se encontraron resultados para tu búsqueda</h3>
+  </div>
+
+</ion-content>

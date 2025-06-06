@@ -1,14 +1,22 @@
 <app-header title="Perfil" [showMenuButton]="true"></app-header>
-<ion-content class="ion-padding-top ion-text-center">
-  <ion-avatar>
-    <img *ngIf="user.image" [src]="user.image" />
-    <ion-icon *ngIf="!user.image" class="empty-icon" name="person-circle-outline"></ion-icon>
-  </ion-avatar>
-  <ion-button class="photo-btn" (click)="takeImage()" size="small" shape="round" mode="ios">
-    <ion-icon name="camera-outline"></ion-icon>
-  </ion-button>
 
-  <h2>{{user.name}}</h2>
-  <h2>{{user.email}}</h2>
-  
+<ion-content class="profile-content">
+  <ion-item lines="none">
+    <ion-avatar slot="start">
+      <img *ngIf="user.image" [src]="user.image" />
+      <ion-icon *ngIf="!user.image" name="person-circle-outline" class="empty-icon"></ion-icon>
+    </ion-avatar>
+    <ion-label>
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.email }}</p>
+    </ion-label>
+    <ion-button fill="clear" color="primary" (click)="takeImage()" class="photo-btn">
+      <ion-icon name="camera-outline"></ion-icon>
+    </ion-button>
+  </ion-item>
+
+  <ion-button class="delete-btn" (click)="deleteAccount()">
+    <ion-icon name="trash-outline" slot="start"></ion-icon>
+    Darme de baja
+  </ion-button>
 </ion-content>

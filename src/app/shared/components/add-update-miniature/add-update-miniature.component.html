@@ -1,4 +1,4 @@
-<app-header [title]="miniature? 'Editar carta' : 'Añadir carta'" [isModal]="true"></app-header>
+<app-header [title]="miniature ? 'Editar registro inventario' : 'Añadir registro inventario'" [isModal]="true"></app-header>
 <ion-content>
   <div class="d-flex-center">
     <form [formGroup]="form" class="ion-padding ion-text-center">
@@ -12,44 +12,145 @@
         Tomar / Seleccionar
       </ion-button>
 
-      <app-custom-input [control]="form.controls.date" type="text" label="Fecha de registro"></app-custom-input>
-
-      <div class="validators" *ngIf="form.controls.date.errors && form.controls.date.touched">
-        <div *ngIf="form.controls.date.errors?.['required']">
+      <app-custom-input [control]="form.controls.fecha_de_ingreso" type="text" label="Fecha de registro"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.fecha_de_ingreso.errors && form.controls.fecha_de_ingreso.touched">
+        <div *ngIf="form.controls.fecha_de_ingreso.errors?.['required']">
           Debe especificar una fecha de registro
         </div>
-        <div *ngIf="form.controls.date.errors?.['minlength']">
-          El nombre debe tener al menos 4 caracteres.
+        <div *ngIf="form.controls.fecha_de_ingreso.errors?.['minlength']">
+          La fecha debe tener al menos 4 caracteres
         </div>
       </div>
 
-      <app-custom-input [control]="form.controls.type" type="text" label="Tipo"></app-custom-input>
-
-      <div class="validators" *ngIf="form.controls.type.errors && form.controls.type.touched">
-        <div *ngIf="form.controls.type.errors?.['required']">
-          Debe especificar un tipo a la carta (ej. corazon, diamante, pica, trebol)
+      <app-custom-input [control]="form.controls.num_de_regs_inv_o_idnt" type="text" label="Número de registro/inventario o identificación"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.num_de_regs_inv_o_idnt.errors && form.controls.num_de_regs_inv_o_idnt.touched">
+        <div *ngIf="form.controls.num_de_regs_inv_o_idnt.errors?.['required']">
+          Debe especificar un número de registro/inventario o identificación
         </div>
-        <div *ngIf="form.controls.type.errors?.['min']">
-         el tipo debe tener al menos 1 caracter.
+        <div *ngIf="form.controls.num_de_regs_inv_o_idnt.errors?.['minlength']">
+          El número debe tener al menos 4 caracteres
         </div>
       </div>
 
-      <app-custom-input [control]="form.controls.number" type="number" label="Numero"></app-custom-input>
-
-      <div class="validators" *ngIf="form.controls.number.errors && form.controls.number.touched">
-        <div *ngIf="form.controls.number.errors?.['required']">
-          Debe especificar una numero de carta
+      <app-custom-input [control]="form.controls.objeto" type="text" label="Objeto"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.objeto.errors && form.controls.objeto.touched">
+        <div *ngIf="form.controls.objeto.errors?.['required']">
+          Debe especificar un objeto
         </div>
-        <div *ngIf="form.controls.number.errors?.['min']">
-          El numero  debe ser mayor que cero.
+      </div>
+
+      <app-custom-input [control]="form.controls.tipologia" type="text" label="Tipología"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.tipologia.errors && form.controls.tipologia.touched">
+        <div *ngIf="form.controls.tipologia.errors?.['required']">
+          Debe especificar una tipología
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.autoria_taller_emisor" type="text" label="Autoría / Taller / Emisor"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.autoria_taller_emisor.errors && form.controls.autoria_taller_emisor.touched">
+        <div *ngIf="form.controls.autoria_taller_emisor.errors?.['required']">
+          Debe especificar autoría, taller o emisor
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.titulo" type="text" label="Título"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.titulo.errors && form.controls.titulo.touched">
+        <div *ngIf="form.controls.titulo.errors?.['required']">
+          Debe especificar un título
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.materias" type="text" label="Materias"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.materias.errors && form.controls.materias.touched">
+        <div *ngIf="form.controls.materias.errors?.['required']">
+          Debe especificar materias
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.tecnicas" type="text" label="Técnicas"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.tecnicas.errors && form.controls.tecnicas.touched">
+        <div *ngIf="form.controls.tecnicas.errors?.['required']">
+          Debe especificar técnicas
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.contextocultural_escuela" type="text" label="Contexto cultural / Escuela"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.contextocultural_escuela.errors && form.controls.contextocultural_escuela.touched">
+        <div *ngIf="form.controls.contextocultural_escuela.errors?.['required']">
+          Debe especificar contexto cultural o escuela
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.dimensiones" type="text" label="Dimensiones"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.dimensiones.errors && form.controls.dimensiones.touched">
+        <div *ngIf="form.controls.dimensiones.errors?.['required']">
+          Debe especificar dimensiones
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.peso" type="text" label="Peso"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.peso.errors && form.controls.peso.touched">
+        <div *ngIf="form.controls.peso.errors?.['required']">
+          Debe especificar peso
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.procedencia" type="text" label="Procedencia"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.procedencia.errors && form.controls.procedencia.touched">
+        <div *ngIf="form.controls.procedencia.errors?.['required']">
+          Debe especificar procedencia
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.localizacion_topografica" type="text" label="Localización topográfica"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.localizacion_topografica.errors && form.controls.localizacion_topografica.touched">
+        <div *ngIf="form.controls.localizacion_topografica.errors?.['required']">
+          Debe especificar localización topográfica
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.estado_de_conservacion" type="text" label="Estado de conservación (bueno, deficiente, pésimo)"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.estado_de_conservacion.errors && form.controls.estado_de_conservacion.touched">
+        <div *ngIf="form.controls.estado_de_conservacion.errors?.['required']">
+          Debe especificar estado de conservación
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.estado_de_restauracion" type="text" label="Estado de restauración (urgente, conveniente, no conveniente)"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.estado_de_restauracion.errors && form.controls.estado_de_restauracion.touched">
+        <div *ngIf="form.controls.estado_de_restauracion.errors?.['required']">
+          Debe especificar estado de restauración
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.observaciones" type="text" label="Observaciones"></app-custom-input>
+      <!-- Observaciones no es requerido -->
+
+      <app-custom-input [control]="form.controls.titularidad" type="text" label="Titularidad"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.titularidad.errors && form.controls.titularidad.touched">
+        <div *ngIf="form.controls.titularidad.errors?.['required']">
+          Debe especificar titularidad
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.forma_de_ingreso" type="text" label="Forma de ingreso"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.forma_de_ingreso.errors && form.controls.forma_de_ingreso.touched">
+        <div *ngIf="form.controls.forma_de_ingreso.errors?.['required']">
+          Debe especificar forma de ingreso
+        </div>
+      </div>
+
+      <app-custom-input [control]="form.controls.fuente_de_ingreso" type="text" label="Fuente de ingreso"></app-custom-input>
+      <div class="validators" *ngIf="form.controls.fuente_de_ingreso.errors && form.controls.fuente_de_ingreso.touched">
+        <div *ngIf="form.controls.fuente_de_ingreso.errors?.['required']">
+          Debe especificar fuente de ingreso
         </div>
       </div>
 
       <ion-button mode="ios" (click)="submit()" expand="block" class="submit" type="submit" [disabled]="form.invalid">
-        {{miniature? 'Editar carta' : 'Añadir carta'}}
+        {{miniature ? 'Editar registro inventario' : 'Añadir registro inventario'}}
         <ion-icon slot="end" name="body-outline"></ion-icon>
       </ion-button>
     </form>
-
   </div>
 </ion-content>

@@ -1,0 +1,79 @@
+<app-header title="Detalle Miniatura" [isModal]="true"></app-header>
+
+<ion-content class="view-miniature-content">
+  <ion-item lines="none">
+    <ion-avatar slot="start" class="avatar">
+      <img *ngIf="miniature.image" [src]="miniature.image" alt="Imagen de {{miniature.objeto}}" />
+      <ion-icon *ngIf="!miniature.image" name="image-outline"></ion-icon>
+    </ion-avatar>
+    <ion-label>
+      <h2>{{ miniature.objeto }}</h2>
+      <p><strong>Número de Registro:</strong> {{ miniature.num_de_regs_inv_o_idnt }}</p>
+    </ion-label>
+  </ion-item>
+
+  <ion-list lines="none" class="details-list">
+    <ion-item>
+      <ion-label><strong>Tipología:</strong> {{ miniature.tipologia }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Autoría/Taller/Emisor:</strong> {{ miniature.autoria_taller_emisor }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Título:</strong> {{ miniature.titulo }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Materias:</strong> {{ miniature.materias }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Técnicas:</strong> {{ miniature.tecnicas }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Contexto Cultural/Escuela:</strong> {{ miniature.contextocultural_escuela }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Dimensiones:</strong> {{ miniature.dimensiones }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Peso:</strong> {{ miniature.peso }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Procedencia:</strong> {{ miniature.procedencia }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Localización Topográfica:</strong> {{ miniature.localizacion_topografica }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Estado de Conservación:</strong> {{ miniature.estado_de_conservacion }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Estado de Restauración:</strong> {{ miniature.estado_de_restauracion }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Observaciones:</strong> {{ miniature.observaciones }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Titularidad:</strong> {{ miniature.titularidad }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Forma de Ingreso:</strong> {{ miniature.forma_de_ingreso }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Fuente de Ingreso:</strong> {{ miniature.fuente_de_ingreso }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Fecha de Ingreso:</strong> {{ miniature.fecha_de_ingreso }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Creado por:</strong> {{ createdByName }}</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label><strong>Última modificación por:</strong> {{ lastModifiedByName }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" color="primary" (click)="printPDF()">
+    <ion-icon slot="start" name="print-outline"></ion-icon>
+    Imprimir PDF
+  </ion-button>
+</ion-content>

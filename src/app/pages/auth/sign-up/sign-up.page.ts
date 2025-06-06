@@ -52,6 +52,8 @@ export class SignUpPage implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
     name: new FormControl('', [Validators.required, Validators.minLength(4)]),
+    image: new FormControl(''), // asegúrate que tu modelo lo incluya
+    admin: new FormControl(false), // ✅ Nuevo campo para definir que no es admin por defecto
   });
 
   firebaseService = inject(FirebaseService);
@@ -73,15 +75,17 @@ export class SignUpPage implements OnInit {
     if (this.form.valid) {
       const loading = await this.utilsService.loading();
       await loading.present();
+
       this.firebaseService
         .signUp(this.form.value as User)
-        .then(async (res) => {
-          this.firebaseService.updateUser(this.form.value.name!)
-          let uid = res.user!.uid;
+        .then(async (res: any) => {
+          this.firebaseService.updateUser(this.form.value.name!);
+          const uid = res.user!.uid;
           this.form.controls.uid.setValue(uid);
-          this.setUserInfo(uid);
+
+          this.setUserInfo(uid); // Guarda la información en Firestore
         })
-        .catch((error) => {
+        .catch((error: any) => {
           this.utilsService.presentToast({
             message: error.message,
             duration: 2500,
@@ -101,17 +105,19 @@ export class SignUpPage implements OnInit {
       const loading = await this.utilsService.loading();
       await loading.present();
 
-      let path = `users/${uid}`;
+      const path = `users/${uid}`;
+
+      // Elimina el campo password antes de guardar
       delete this.form.value.password;
 
       this.firebaseService
         .setDocument(path, this.form.value)
-        .then((res) => {
+        .then((res: any) => {
           this.utilsService.saveInLocalStorage('user', this.form.value);
           this.form.reset();
           this.utilsService.routerLink('/main/home');
         })
-        .catch((error) => {
+        .catch((error: any) => {
           this.utilsService.presentToast({
             message: error.message,
             duration: 2500,

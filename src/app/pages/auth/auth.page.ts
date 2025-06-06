@@ -69,12 +69,15 @@ export class AuthPage implements OnInit {
   async submit() {
     const loading = await this.utilsService.loading();
     await loading.present();
+
     this.firebaseService
       .signIn(this.form.value as User)
       .then((res) => {
+        // ✅ Una vez logueado, carga los datos del usuario desde Firestore
         this.getUserInfo(res.user.uid);
       })
       .catch((error) => {
+        // ❌ Muestra mensaje de error si falla
         this.utilsService.presentToast({
           message: error.message,
           duration: 2500,
@@ -92,13 +95,16 @@ export class AuthPage implements OnInit {
     const loading = await this.utilsService.loading();
     await loading.present();
 
-    let path = `users/${uid}`;
+    const path = `users/${uid}`;
 
     this.firebaseService
       .getDocument(path)
       .then((userData: any) => {
         const user: User = userData;
+
+        // ✅ Guarda en localStorage, incluyendo el campo "admin"
         this.utilsService.saveInLocalStorage('user', user);
+
         this.utilsService.presentToast({
           message: `Sesión iniciada como ${user.name}`,
           duration: 1500,
@@ -106,6 +112,7 @@ export class AuthPage implements OnInit {
           position: 'middle',
           icon: 'person-circle-outline',
         });
+
         this.form.reset();
         this.utilsService.routerLink('/main/home');
       })

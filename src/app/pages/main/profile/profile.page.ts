@@ -8,7 +8,11 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 import { User } from 'src/app/models/user.model';
 import { HeaderComponent } from "../../../shared/components/header/header.component";
 import { addIcons } from 'ionicons';
-import { cameraOutline, personOutline, personCircleOutline } from 'ionicons/icons';
+import { cameraOutline, personOutline, personCircleOutline,trashOutline } from 'ionicons/icons';
+import { Auth } from '@angular/fire/auth';
+import { authState } from '@angular/fire/auth';
+
+
 
 @Component({
   selector: 'app-profile',
@@ -21,12 +25,14 @@ export class ProfilePage implements OnInit {
   utilsService = inject(UtilsService);
   firebaseService = inject(FirebaseService);
   supabaseService = inject(SupabaseService);
-  user :User;
-  constructor() { 
-    this.user = this.utilsService.getLocalStorageUser();
-    addIcons({personCircleOutline,cameraOutline,personOutline});
-  }
+  auth = inject(Auth);
 
+  user: User;
+
+  constructor() {
+    this.user = this.utilsService.getLocalStorageUser();
+    addIcons({ personCircleOutline, cameraOutline, personOutline, trashOutline });
+  }
   ngOnInit() {
   }
 
@@ -67,6 +73,38 @@ export class ProfilePage implements OnInit {
     }).finally(() => {
       loading.dismiss();
     })
+  }
+  async deleteAccount() {
+    const confirmed = confirm(`¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.`);
+    if (!confirmed) return;
+
+    const loading = await this.utilsService.loading();
+    await loading.present();
+
+    try {
+      if (this.user.image) {
+        const oldImagePath = await this.supabaseService.getFilePath(this.user.image);
+        await this.supabaseService.deleteFile(oldImagePath!);
+      }
+
+      await this.firebaseService.deleteDocument(`users/${this.user.uid}`);
+      await this.firebaseService.signOut();
+      localStorage.removeItem('user');
+      
+      window.location.href = '/auth'; // Redirigir a login o landing
+
+    } catch (error) {
+      console.error('Error al eliminar la cuenta:', error);
+      this.utilsService.presentToast({
+        color: "danger",
+        duration: 2500,
+        message: "No se pudo eliminar la cuenta.",
+        position: "middle",
+        icon: 'alert-circle-outline'
+      });
+    } finally {
+      loading.dismiss();
+    }
   }
 
 }

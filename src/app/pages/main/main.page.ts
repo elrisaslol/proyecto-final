@@ -42,10 +42,11 @@ export class MainPage implements OnInit {
       icon: 'person-outline',
     },
     {
-      title: 'Sensores',
-      url: '/main/sensors',
-      icon: 'hardware-chip-outline',
+      title: 'Busqueda',
+      url: '/main/search-section',
+      icon: 'search-outline',
     },
+  
   ];
 
   user: User;

@@ -2,64 +2,82 @@
 
 <ion-content>
 
-<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-  <ion-refresher-content></ion-refresher-content>
-</ion-refresher>
-<ion-card mode="ios" color="secondary" class="d-flex-center ion-text-center" *ngIf="!loading && miniatures.length">
-  <div><h5>{{miniatures.length}}</h5><p>Numero de cartas</p></div>
-  
-</ion-card>
-  <ion-list *ngIf="!loading" class="miniatures-list">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Tarjeta con número de registros cuando hay datos -->
+  <ion-card mode="ios" color="secondary" class="d-flex-center ion-text-center" *ngIf="!loading && miniatures.length > 0">
+    <div>
+      <h5>{{ miniatures.length }}</h5>
+      <p>Número de registros de inventario</p>
+    </div>
+  </ion-card>
+
+  <!-- Lista de registros con imagen, fecha, objeto y número -->
+  <ion-list *ngIf="!loading && miniatures.length > 0" class="miniatures-list">
     <ion-item-sliding *ngFor="let miniature of miniatures" class="miniature-item">
       <ion-item>
         <ion-avatar slot="start">
-          <img [src]="miniature.image" />
+          <img [src]="miniature.image" alt="Imagen de {{miniature.objeto}}" />
         </ion-avatar>
         <ion-label>
-          <div class="name"> <strong>Fecha de registro:</strong> {{miniature.date}}</div>
+          <div class="name"><strong>Fecha de Ingreso:</strong> {{ miniature.fecha_de_ingreso }}</div>
           <div class="data">
-            <strong>Tipo:</strong> {{miniature.type}}
-            <br />
-            <strong>Numero:</strong> {{miniature.number}}
+            <strong>Objeto:</strong> {{ miniature.objeto }}<br />
+            <strong>Número de Registro/Inventario:</strong> {{ miniature.num_de_regs_inv_o_idnt }}
           </div>
           <ion-chip color="primary" mode="ios" outline="true">
-            <ion-label>carta: {{miniature.number+" de "+miniature.type}}</ion-label>
+            <ion-label>
+              Especificaciones físicas: dimensiones: {{ miniature.dimensiones }}, peso: {{ miniature.peso }}
+            </ion-label>
           </ion-chip>
         </ion-label>
+
+        <!-- Indicador visual para swipe -->
+        <ion-icon name="chevron-forward-outline" slot="end" class="swipe-indicator"></ion-icon>
+
       </ion-item>
       <ion-item-options>
-        <ion-item-option (click)="addUpdateMiniature(miniature)">
+        <ion-item-option (click)="viewMiniature(miniature)" color="warning">
+          <ion-icon class="option-btn" name="search-outline"></ion-icon>
+        </ion-item-option>
+        <ion-item-option (click)="addUpdateMiniature(miniature)" *ngIf="user?.admin">
           <ion-icon class="option-btn" name="create-outline"></ion-icon>
         </ion-item-option>
-        <ion-item-option (click)="confirmDeleteMiniature(miniature)" color="danger">
+        <ion-item-option (click)="confirmDeleteMiniature(miniature)" color="danger" *ngIf="user?.admin">
           <ion-icon class="option-btn" name="trash-outline"></ion-icon>
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
-
-    <ion-list *ngIf="loading"  class="miniatures-list">
-    <ion-item *ngFor="let i of [1, 1, 1, 1, 1, 1, 1, 1]" class="miniature-item">
-        <ion-avatar slot="start">
-          <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
-        </ion-avatar>
-        <ion-label style="width: 50%">
-          <div><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></div>
-          <div><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></div>
-        </ion-label>
-      </ion-item>
+  <!-- Skeleton loading mientras carga datos -->
+  <ion-list *ngIf="loading" class="miniatures-list">
+    <ion-item *ngFor="let i of [1,1,1,1,1,1,1,1]" class="miniature-item">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated style="width: 100%; height: 100%"></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label style="width: 50%">
+        <div><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></div>
+        <div><ion-skeleton-text animated style="width: 30%"></ion-skeleton-text></div>
+      </ion-label>
+    </ion-item>
   </ion-list>
 
-  <div *ngIf="!loading && this.miniatures.length == 0" class="empty">
-    <ion-icon name="body-outline"></ion-icon>
-    <h3>Aún no has agregado ninguna carta</h3>
+  <!-- Mensaje cuando no hay registros -->
+  <div *ngIf="!loading && miniatures.length === 0" class="empty">
+    <ion-avatar class="empty-avatar">
+      <img src="assets/form.svg" alt="No hay registros" />
+    </ion-avatar>
+    <h3>Aún no se ha agregado ningún registro de inventario</h3>
   </div>
 
-
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <!-- Botón flotante para agregar un registro nuevo (solo visible para administradores) -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="user?.admin">
     <ion-fab-button (click)="addUpdateMiniature()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
 </ion-content>

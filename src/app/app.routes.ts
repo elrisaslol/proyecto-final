@@ -53,6 +53,20 @@ export const routes: Routes = [
             (m) => m.SensorsPage
           ),
       },
+      {
+        path: 'admin-section',
+        loadComponent: () => 
+        import('./pages/main/admin-section/admin-section.page').then(
+          m => m.AdminSectionPage)
+      },
+      {
+       path: 'search-section',
+       loadComponent: () =>
+       import('./pages/main/search-section/search-section.page').then(
+         m => m.SearchSectionPage)
+      },
     ],
   },
+  
+  
 ];

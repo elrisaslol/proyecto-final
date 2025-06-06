@@ -1,0 +1,43 @@
+<app-header title="Admin" [showMenuButton]="true"></app-header>
+
+<ion-content class="admin-content">
+  <ion-list>
+    <ion-item *ngFor="let user of users" lines="full" class="user-item">
+      <ion-avatar slot="start">
+        <img *ngIf="user.image" [src]="user.image" />
+        <ion-icon *ngIf="!user.image" class="empty-icon" name="person-circle-outline"></ion-icon>
+      </ion-avatar>
+
+      <ion-label class="user-info">
+        <h2>{{ user.name }}</h2>
+        <p>{{ user.email }}</p>
+        <span class="admin-status" [class.active]="user.admin">
+          {{ user.admin ? 'Administrador' : 'Usuario normal' }}
+        </span>
+      </ion-label>
+
+      <div class="toggle-wrapper" slot="end">
+        <ion-label class="toggle-label">Permisos</ion-label>
+        <ion-toggle
+          [checked]="user.admin"
+          (ionChange)="toggleAdmin(user, $event)"
+          [disabled]="user.uid === currentUserUid"
+          color="primary"
+        ></ion-toggle>
+      </div>
+
+      <ion-button
+        fill="clear"
+        color="danger"
+        slot="end"
+        size="small"
+        (click)="deleteUser(user)"
+        [disabled]="user.uid === currentUserUid"
+        title="Eliminar usuario"
+        class="delete-btn"
+      >
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

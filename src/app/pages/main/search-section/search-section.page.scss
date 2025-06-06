@@ -1,0 +1,98 @@
+/* Ajustes para pantallas grandes */
+@media (min-width: 769px) {
+  .add-update-modal {
+    --height: 680px; /* Altura fija para modal en pantallas grandes */
+  }
+}
+
+/* Estilo de cada item de miniatura en la lista */
+.miniature-item {
+  --padding-top: 20px; /* Espaciado arriba */
+
+  ion-avatar {
+    width: 70px;          /* Ancho avatar */
+    height: 80px;         /* Alto avatar */
+    --border-radius: 15px; /* Bordes redondeados */
+  }
+
+  .name {
+    font-weight: 700;      /* Negrita */
+    padding-bottom: 5px;   /* Separación abajo */
+  }
+
+  .option-btn {
+    font-size: 27px;       /* Tamaño íconos opciones */
+  }
+
+  .data {
+    font-size: 13px;       /* Texto datos más pequeño */
+
+    strong {
+      font-weight: 600;    /* Negrita para etiquetas */
+    }
+  }
+
+  ion-chip {
+    font-size: 14px;       /* Texto chip */
+    border-radius: 10px;   /* Bordes redondeados */
+    margin-left: 0;        /* Sin margen izquierdo */
+  }
+}
+
+/* Estilo cuando no hay resultados */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px;
+  opacity: 0.3; /* Opacidad 30% */
+}
+
+.empty ion-avatar {
+  width: 100px;
+  height: 100px;
+  margin-bottom: 1rem;
+  background: var(--ion-color-light); /* Fondo claro */
+}
+
+.empty ion-avatar img {
+  width: 120%;
+  height: 120%;
+  object-fit: scale-down;
+  margin-top: -10px;
+}
+
+/* Estilo general para los ion-card */
+ion-card {
+  gap: 100px;
+  padding: 20px 0;
+  border-radius: 15px;
+}
+
+/* Espacio extra abajo en la lista para evitar tapar contenido */
+.miniatures-list {
+  padding-bottom: 70px;
+}
+
+/* Indicador visual para deslizar */
+.swipe-indicator {
+  font-size: 20px;
+  color: rgba(0, 106, 255, 0.865);
+  margin-left: 8px;
+  animation: swipePulse 2s infinite;
+  align-self: center;
+}
+
+/* Animación pulsante para swipe indicator */
+@keyframes swipePulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translateX(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateX(4px);
+  }
+}
