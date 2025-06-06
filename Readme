@@ -1,10 +1,7 @@
-# Castle Card Manager
-# Aplicacion basada en Warmace Manager
+## Tesoros de Ulia 
 
 
-
-
-Castle Card Manager es una aplicación desarrollada con [Angular](https://angular.io/) e [Ionic](https://ionicframework.com/) que permite gestionar una colección de cartas de tus juegos de mesa favoritos.
+Tesoros de ulia es una aplicación desarrollada con [Angular](https://angular.io/) e [Ionic](https://ionicframework.com/) que permite gestionar una colección de cartas de tus juegos de mesa favoritos.
 
 ## Requisitos previos
 
